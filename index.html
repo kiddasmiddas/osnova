@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ОСНОВА — Креативное агентство</title>
+    <meta name="description" content="ОСНОВА — креативное event-агентство полного цикла. Мы не просто организуем мероприятия — мы создаём пространство, где рождаются эмоции.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --blue-deep: #0f1b4d;
+            --blue-mid: #1a2980;
+            --purple-mid: #6a1b9a;
+            --purple-bright: #ab47bc;
+            --magenta: #c2185b;
+            --pink-accent: #e040fb;
+            --text-white: #ffffff;
+            --text-light: rgba(255,255,255,0.85);
+            --text-muted: rgba(255,255,255,0.6);
+            --bg-dark: #0c0e2b;
+            --bg-section: #10133a;
+            --bg-card: rgba(255,255,255,0.05);
+            --border-subtle: rgba(255,255,255,0.08);
+            --gradient-main: linear-gradient(135deg, #0f1b4d 0%, #1a2980 30%, #6a1b9a 70%, #c2185b 100%);
+            --gradient-accent: linear-gradient(135deg, #6a1b9a, #e040fb);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        img { max-width: 100%; height: auto; display: block; }
+        ul { list-style: none; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAV ===== */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: background 0.4s, box-shadow 0.4s;
+        }
+        .nav.scrolled {
+            background: rgba(12, 14, 43, 0.92);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 40px rgba(0,0,0,0.3);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        .nav-logo img {
+            height: 44px;
+            width: auto;
+        }
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: var(--text-light);
+            transition: color 0.3s;
+            position: relative;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px; left: 0;
+            width: 0; height: 2px;
+            background: var(--gradient-accent);
+            transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--text-white); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--gradient-accent);
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .nav-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(106, 27, 154, 0.4);
+        }
+
+        .burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none; border: none;
+            padding: 8px;
+        }
+        .burger span {
+            width: 24px; height: 2px;
+            background: var(--text-white);
+            border-radius: 2px;
+            transition: 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        .hero-bg img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg,
+                rgba(15, 27, 77, 0.85) 0%,
+                rgba(26, 41, 128, 0.75) 30%,
+                rgba(106, 27, 154, 0.75) 70%,
+                rgba(194, 24, 91, 0.8) 100%
+            );
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0 24px;
+        }
+        .hero-icon {
+            margin: 0 auto 24px;
+            width: 80px; height: 80px;
+            
+        }
+        .hero-icon svg {
+            width: 100%; height: 100%;
+            fill: none;
+            stroke: var(--text-white);
+            stroke-width: 1.5;
+        }
+        .hero-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(64px, 12vw, 140px);
+            font-weight: 900;
+            letter-spacing: 8px;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 16px;
+            text-shadow: 0 4px 60px rgba(0,0,0,0.3);
+        }
+        .hero-subtitle {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(14px, 2vw, 20px);
+            font-weight: 500;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 48px;
+        }
+        .hero-tagline {
+            font-size: clamp(14px, 1.8vw, 18px);
+            font-weight: 400;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.7;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .hero-scroll {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: float 2s ease-in-out infinite;
+        }
+        .hero-scroll .arrow {
+            width: 24px; height: 24px;
+            border-right: 2px solid var(--text-muted);
+            border-bottom: 2px solid var(--text-muted);
+            transform: rotate(45deg);
+        }
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(10px); }
+        }
+
+        /* ===== SECTION COMMON ===== */
+        .section {
+            padding: 100px 0;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+        .section-label {
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--pink-accent);
+            margin-bottom: 16px;
+        }
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(28px, 4vw, 42px);
+            font-weight: 800;
+            letter-spacing: 2px;
+            line-height: 1.2;
+        }
+        .section-desc {
+            max-width: 650px;
+            margin: 20px auto 0;
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== ABOUT ===== */
+        .about { background: var(--bg-section); }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-text h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .about-text p {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+        .about-values {
+            margin-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .value-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+        .value-icon {
+            color: var(--pink-accent);
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+        .about-visual {
+            position: relative;
+        }
+        .about-visual img {
+            border-radius: var(--radius);
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+        }
+        .about-visual::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: var(--radius);
+            background: linear-gradient(135deg, rgba(106,27,154,0.3), transparent 60%);
+        }
+
+        /* ===== SERVICES ===== */
+        .services { background: var(--bg-dark); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+        .service-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            group: true;
+        }
+        .service-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        .service-card:hover img {
+            transform: scale(1.08);
+        }
+        .service-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to top,
+                rgba(12, 14, 43, 0.95) 0%,
+                rgba(12, 14, 43, 0.4) 50%,
+                transparent 100%
+            );
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 28px;
+            transition: background 0.4s;
+        }
+        .service-card:hover .service-overlay {
+            background: linear-gradient(
+                to top,
+                rgba(106, 27, 154, 0.9) 0%,
+                rgba(106, 27, 154, 0.5) 50%,
+                rgba(106, 27, 154, 0.2) 100%
+            );
+        }
+        .service-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .service-desc {
+            font-size: 14px;
+            color: var(--text-light);
+            line-height: 1.6;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s, opacity 0.4s;
+        }
+        .service-card:hover .service-desc {
+            max-height: 200px;
+            opacity: 1;
+        }
+        .service-bullets {
+            margin-top: 8px;
+            padding-left: 0;
+        }
+        .service-bullets li {
+            font-size: 13px;
+            color: var(--text-light);
+            padding: 3px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+        .service-bullets li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--pink-accent);
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            background: var(--gradient-main);
+            padding: 80px 0;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+        .stat-item .stat-value {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(36px, 5vw, 52px);
+            font-weight: 900;
+        }
+        .stat-item .stat-label {
+            font-size: 14px;
+            color: var(--text-light);
+            margin-top: 8px;
+            letter-spacing: 1px;
+        }
+
+        /* ===== QUOTE ===== */
+        .quote-section {
+            background: var(--bg-section);
+            padding: 100px 0;
+        }
+        .quote-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .quote-mark {
+            font-size: 80px;
+            line-height: 1;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 24px;
+        }
+        .quote-text {
+            font-size: 22px;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 32px;
+        }
+        .quote-author {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .quote-role {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact { background: var(--bg-dark); }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        .contact-info h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .contact-info > p {
+            color: var(--text-muted);
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 32px;
+        }
+        .contact-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            transition: border-color 0.3s, background 0.3s;
+        }
+        .contact-link:hover {
+            border-color: rgba(171, 71, 188, 0.3);
+            background: rgba(106, 27, 154, 0.1);
+        }
+        .contact-link-icon {
+            width: 40px; height: 40px;
+            background: var(--gradient-accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .contact-link-icon svg {
+            width: 20px; height: 20px;
+            fill: white;
+        }
+        .contact-link-text .link-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .contact-link-text .link-value {
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 40px;
+        }
+        .contact-form h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius-sm);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-color: var(--purple-bright);
+            box-shadow: 0 0 0 3px rgba(171, 71, 188, 0.15);
+        }
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        .form-group select option {
+            background: var(--bg-dark);
+        }
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gradient-accent);
+            border: none;
+            border-radius: var(--radius-sm);
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(106, 27, 154, 0.4);
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--bg-section);
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 0;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        /* ===== ANIMATIONS ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== HERO ENTRANCE ANIMATIONS ===== */
+        @keyframes heroFadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroFadeScale {
+            from {
+                opacity: 0;
+                transform: scale(0.7) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .hero-icon {
+            animation: heroFadeScale 1s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+        }
+
+        .hero-title {
+            animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.5s both;
+        }
+
+        .hero-subtitle {
+            animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 0.8s both;
+        }
+
+        .hero-tagline {
+            animation: heroFadeUp 1s cubic-bezier(0.22, 1, 0.36, 1) 1.1s both;
+        }
+        .nav {
+            animation: heroFadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.1s both;
+        }
+
+
+
+        /* ===== MOBILE NAV ===== */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(12, 14, 43, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 999;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+        .mobile-menu.open { display: flex; }
+        .mobile-menu a {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            transition: color 0.3s;
+        }
+        .mobile-menu a:hover { color: var(--pink-accent); }
+        .mobile-close {
+            position: absolute;
+            top: 24px; right: 24px;
+            background: none; border: none;
+            color: var(--text-white);
+            font-size: 32px;
+            cursor: pointer;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .about-visual { order: -1; }
+            .contact-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .burger { display: flex; }
+            .container { padding: 0 20px; }
+            .section { padding: 70px 0; }
+
+            .hero { min-height: 100vh; min-height: 100dvh; }
+            .hero-title { font-size: clamp(48px, 14vw, 80px); letter-spacing: 4px; }
+            .hero-subtitle { letter-spacing: 5px; font-size: 14px; margin-bottom: 32px; }
+            .hero-tagline { letter-spacing: 0.5px; font-size: 15px; padding: 0 8px; }
+            .hero-icon { width: 64px; height: 64px; margin-bottom: 20px; }
+            .hero-scroll { bottom: 24px; }
+
+            .about-grid { grid-template-columns: 1fr; gap: 32px; }
+            .about-visual { order: -1; }
+            .about-visual img { aspect-ratio: 16/9; }
+            .about-text h3 { font-size: 24px; }
+            .about-text p { font-size: 15px; }
+
+            .section-title { font-size: clamp(24px, 6vw, 32px); }
+            .section-desc { font-size: 15px; }
+            .section-header { margin-bottom: 40px; }
+
+            .services-grid { grid-template-columns: 1fr; gap: 16px; }
+            .service-card { aspect-ratio: 16/10; }
+            .service-overlay { padding: 20px; }
+            .service-title { font-size: 18px; }
+            .service-desc { max-height: 200px; opacity: 1; }
+
+            .stats { padding: 60px 0; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+            .stat-item .stat-value { font-size: 36px; }
+            .stat-item .stat-label { font-size: 13px; }
+
+            .quote-section { padding: 70px 0; }
+            .quote-mark { font-size: 56px; margin-bottom: 16px; }
+            .quote-text { font-size: 18px; line-height: 1.7; }
+
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .contact-info h3 { font-size: 24px; }
+            .contact-form { padding: 28px 20px; }
+            .contact-form h3 { font-size: 20px; }
+            .form-group input,
+            .form-group textarea,
+            .form-group select { padding: 12px 14px; font-size: 16px; }
+            .form-submit { padding: 14px; font-size: 14px; }
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 0 16px; }
+            .section { padding: 56px 0; }
+
+            .hero-title { font-size: clamp(40px, 16vw, 64px); letter-spacing: 2px; }
+            .hero-subtitle { letter-spacing: 3px; font-size: 12px; margin-bottom: 24px; }
+            .hero-tagline { font-size: 13px; line-height: 1.8; }
+            .hero-icon { width: 52px; height: 52px; margin-bottom: 16px; }
+
+
+            .service-card { aspect-ratio: 3/2; }
+
+            .stats-grid { gap: 20px; }
+            .stat-item .stat-value { font-size: 30px; }
+            .stat-item .stat-label { font-size: 12px; }
+
+            .quote-text { font-size: 16px; }
+            .quote-author { font-size: 15px; }
+
+            .contact-form { padding: 24px 16px; }
+            .contact-link { padding: 14px 16px; }
+            .contact-link-icon { width: 36px; height: 36px; border-radius: 8px; }
+            .contact-link-icon svg { width: 18px; height: 18px; }
+            .contact-link-text .link-value { font-size: 15px; }
+
+            .footer { padding: 32px 0; }
+            .footer p { font-size: 12px; }
+        }
+
+        @media (max-width: 360px) {
+            .hero-title { font-size: 36px; letter-spacing: 1px; }
+            .hero-subtitle { font-size: 10px; letter-spacing: 2px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav class="nav" id="nav">
+        <div class="container nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="images/logo.png" alt="ОСНОВА">
+            </a>
+            <div class="nav-links">
+                <a href="#about">О нас</a>
+                <a href="#services">Услуги</a>
+                <a href="#stats">Наш опыт</a>
+                <a href="#contact" class="nav-cta">Связаться</a>
+            </div>
+            <button class="burger" id="burgerBtn" aria-label="Меню">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MOBILE MENU -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-close" id="mobileClose">&times;</button>
+        <a href="#about" onclick="closeMobile()">О нас</a>
+        <a href="#services" onclick="closeMobile()">Услуги</a>
+        <a href="#stats" onclick="closeMobile()">Наш опыт</a>
+        <a href="#contact" onclick="closeMobile()">Связаться</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-bg">
+            <img src="images/service-producing.jpg" alt="Мероприятие">
+        </div>
+        <div class="hero-content">
+            <div class="hero-icon">
+                <svg viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Top diamond face -->
+                    <polygon points="50,12 88,32 50,52 12,32" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                    <!-- Left face -->
+                    <polygon points="12,32 50,52 50,68 12,48" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                    <!-- Right face -->
+                    <polygon points="88,32 50,52 50,68 88,48" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+                    <!-- Center dot -->
+                    <circle cx="50" cy="35" r="3.5" fill="white"/>
+                </svg>
+            </div>
+            <h1 class="hero-title">ОСНОВА</h1>
+            <p class="hero-subtitle">Креативное агентство</p>
+            <p class="hero-tagline">Мы не просто организуем мероприятия —<br>мы создаём пространство, где рождаются эмоции.</p>
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section about" id="about">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-text fade-up">
+                    <div class="section-label">О нас</div>
+                    <h3>Event-агентство полного цикла</h3>
+                    <p>Мы — креативное агентство, специализирующееся на организации мероприятий полного цикла. От идеи до реализации — каждый проект для нас уникален.</p>
+                    <p>Наша команда берёт на себя все этапы: разработку концепции, подбор площадки, техническое оснащение, кейтеринг, декор и постпродакшн.</p>
+                    <div class="about-values">
+                        <div class="value-item">
+                            <span class="value-icon">✦</span>
+                            <span>Индивидуальный подход к каждому проекту</span>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">✦</span>
+                            <span>Полный цикл — от концепции до реализации</span>
+                        </div>
+                        <div class="value-item">
+                            <span class="value-icon">✦</span>
+                            <span>Команда профессионалов с опытом в event-индустрии</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual fade-up">
+                    <img src="images/service-strategy.jpg" alt="Стратегия">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="section services" id="services">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Наши услуги</div>
+                <h2 class="section-title">Полный спектр event-услуг</h2>
+                <p class="section-desc">Каждое мероприятие — это уникальный проект. Мы обеспечиваем комплексный подход на каждом этапе.</p>
+            </div>
+            <div class="services-grid">
+
+                <div class="service-card fade-up">
+                    <img src="images/service-strategy.jpg" alt="Стратегия и концепция">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Стратегия и концепция</h3>
+                        <div class="service-desc">
+                            <ul class="service-bullets">
+                                <li>Разработка концепции мероприятия</li>
+                                <li>Бюджетирование и планирование</li>
+                                <li>Координация всех подрядчиков</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card fade-up">
+                    <img src="images/service-producing.jpg" alt="Продюсирование">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Продюсирование</h3>
+                        <div class="service-desc">
+                            <ul class="service-bullets">
+                                <li>Управление проектом под ключ</li>
+                                <li>Техническое продюсирование</li>
+                                <li>Координация на площадке</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card fade-up">
+                    <img src="images/service-digital.jpg" alt="Digital-решения">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Digital-решения</h3>
+                        <div class="service-desc">
+                            <ul class="service-bullets">
+                                <li>Онлайн-трансляции и гибриды</li>
+                                <li>Интерактивные решения</li>
+                                <li>Digital-продвижение</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card fade-up">
+                    <img src="images/service-catering.jpg" alt="Кейтеринг">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Кейтеринг</h3>
+                        <div class="service-desc">
+                            <ul class="service-bullets">
+                                <li>Авторские меню под формат</li>
+                                <li>Банкетное обслуживание</li>
+                                <li>Фуршеты и кофе-брейки</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card fade-up">
+                    <img src="images/service-merch.jpg" alt="Мерч и сувениры">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Мерч и сувениры</h3>
+                        <div class="service-desc">
+                            <ul class="service-bullets">
+                                <li>Разработка брендированной продукции</li>
+                                <li>Welcome-паки для участников</li>
+                                <li>Корпоративные подарки</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-card fade-up">
+                    <img src="images/service-venue.jpg" alt="Площадки">
+                    <div class="service-overlay">
+                        <h3 class="service-title">Подбор площадок</h3>
+                        <div class="service-desc">
+                            <ul class="service-bullets">
+                                <li>База из 500+ проверенных площадок</li>
+                                <li>Нестандартные локации</li>
+                                <li>Техническая экспертиза</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats" id="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-up">
+                    <div class="stat-value">10+</div>
+                    <div class="stat-label">Лет на рынке</div>
+                </div>
+                <div class="stat-item fade-up">
+                    <div class="stat-value">150+</div>
+                    <div class="stat-label">Реализованных проектов</div>
+                </div>
+                <div class="stat-item fade-up">
+                    <div class="stat-value">98%</div>
+                    <div class="stat-label">Клиентов довольны</div>
+                </div>
+                <div class="stat-item fade-up">
+                    <div class="stat-value">∞</div>
+                    <div class="stat-label">География проектов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- QUOTE -->
+    <section class="quote-section">
+        <div class="container">
+            <div class="quote-inner fade-up">
+                <div class="quote-mark">"</div>
+                <p class="quote-text">Каждое мероприятие — это живой организм. Мы не ищем шаблонных решений, мы создаём уникальные истории, в которых каждая деталь работает на результат.</p>
+                <p class="quote-author">Алла Арутюнян</p>
+                <p class="quote-role">Креативный продюсер агентства «ОСНОВА»</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <div class="section-header fade-up">
+                <div class="section-label">Контакты</div>
+                <h2 class="section-title">Давайте обсудим ваш проект</h2>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info fade-up">
+                    <h3>Свяжитесь с нами</h3>
+                    <p>Расскажите о вашем мероприятии, и мы предложим лучшее решение. Первая консультация — бесплатно.</p>
+                    <div class="contact-links">
+                        <a href="tel:+79XXXXXXXXX" class="contact-link">
+                            <div class="contact-link-icon">
+                                <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg>
+                            </div>
+                            <div class="contact-link-text">
+                                <div class="link-label">Телефон</div>
+                                <div class="link-value">+7 (9XX) XXX-XX-XX</div>
+                            </div>
+                        </a>
+                        <a href="https://wa.me/79XXXXXXXXX" class="contact-link" target="_blank">
+                            <div class="contact-link-icon">
+                                <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.832-1.438A9.955 9.955 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                            </div>
+                            <div class="contact-link-text">
+                                <div class="link-label">WhatsApp</div>
+                                <div class="link-value">Написать в WhatsApp</div>
+                            </div>
+                        </a>
+                        <a href="https://t.me/" class="contact-link" target="_blank">
+                            <div class="contact-link-icon">
+                                <svg viewBox="0 0 24 24"><path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z"/></svg>
+                            </div>
+                            <div class="contact-link-text">
+                                <div class="link-label">Telegram</div>
+                                <div class="link-value">Написать в Telegram</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 ОСНОВА — Креативное event-агентство. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Force scroll to top on load (fix mobile auto-scroll)
+        if (history.scrollRestoration) { history.scrollRestoration = "manual"; }
+        window.scrollTo(0, 0);
+
+        // Nav scroll effect
+        const nav = document.getElementById('nav');
+        window.addEventListener('scroll', () => {
+            nav.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile menu
+        const burgerBtn = document.getElementById('burgerBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileClose = document.getElementById('mobileClose');
+
+        burgerBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+        mobileClose.addEventListener('click', closeMobile);
+        function closeMobile() {
+            mobileMenu.classList.remove('open');
+        }
+
+        // Fade-in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    </script>
+
+</body>
+</html>
